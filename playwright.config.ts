@@ -45,7 +45,7 @@ const config: PlaywrightTestConfig = {
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on-first-retry',// record traces on first retry of each test
-    headless: false,
+    headless: true,
     defaultBrowserType: 'chromium',
     // storageState: 'storageState.json'
   },
