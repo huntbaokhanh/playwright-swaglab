@@ -11,7 +11,8 @@ import { devices } from '@playwright/test';
  * See https://playwright.dev/docs/test-configuration.
  */
 const config: PlaywrightTestConfig = {
-  testDir: './tests',
+  // globalSetup: require.resolve('./e2e/helpers/global.setup'),
+  testDir: './e2e',
   /* Maximum time one test can run for. */
   timeout: 30 * 1000,
   expect: {
@@ -29,6 +30,10 @@ const config: PlaywrightTestConfig = {
   retries: process.env.CI ? 2 : 0,
   /* Opt out of parallel tests on CI. */
   workers: process.env.CI ? 1 : undefined,
+
+  // Limit the number of failures on CI to save resources
+  maxFailures: process.env.CI ? 10 : undefined,
+  
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
   reporter: 'html',
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
@@ -39,7 +44,10 @@ const config: PlaywrightTestConfig = {
     // baseURL: 'http://localhost:3000',
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
-    trace: 'on-first-retry',
+    trace: 'on-first-retry',// record traces on first retry of each test
+    headless: false,
+    defaultBrowserType: 'chromium',
+    // storageState: 'storageState.json'
   },
 
   /* Configure projects for major browsers */
